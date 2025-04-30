@@ -1,0 +1,19 @@
+name: Greet New Contributor
+
+on:
+  pull_request:
+    types: [opened]  # Trigger when a pull request is opened
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest  # Runs on the latest Ubuntu runner
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Check out the repository's code
+        
+      - name: Greet New Contributor
+        run: |
+          if [ "${{ github.event.pull_request.user.type }}" == "User" ] && [ "${{ github.event.pull_request.user.site_admin }}" == "false" ]; then
+            echo "👋 Hello @${{ github.actor }}, thank you for your first pull request! 🎉"
+          fi
